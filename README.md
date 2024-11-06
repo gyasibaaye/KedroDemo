@@ -1,6 +1,30 @@
 # code
 
+## How to install dependencies
+this is a very brief demo created for a Pycon presentation. This should be able to run in a dev container, but my dev container failed for OTHER reasons as of this commit so I have not tested it.
+
+To install the kedro enviornment run:
+```
+conda env create -f .devcontainer/environment.yml
+
+conda activate kedro-env
+```
+
+To run kedro: 
+```
+kedro run
+```
+
+to visualize kedro(preferably in another terminal):
+```
+kedro viz --autoreload
+```
+Check Kedro documentation for more explenation.
+
+# EVERYTHING PAST THIS POINT IS BOILERPLATE README BY KEDRO
+
 ## Overview
+
 
 This is your new Kedro project with Kedro-Viz setup, which was generated using `kedro 0.19.8`.
 
@@ -17,7 +41,7 @@ In order to get the best out of the template:
 
 ## How to install dependencies
 
-Declare any dependencies in `requirements.txt` for `pip` installation.
+Declare any dependencies in `,=.devcontainer/requirements.txt` for `pip` installation.
 
 To install them, run:
 
