@@ -64,50 +64,79 @@ shuttles:
       layer: raw
 
 
-preprocessed_companies:
+processing_pipeline.preprocessed_companies:
   type: pandas.ParquetDataset
   filepath: data/02_intermediate/preprocessed_companies.pq
   metadata:
     kedro-viz:
       layer: intermediate
 
-preprocessed_shuttles:
+processing_pipeline.preprocessed_shuttles:
   type: pandas.ParquetDataset
   filepath: data/02_intermediate/preprocessed_shuttles.pq
   metadata:
     kedro-viz:
       layer: intermediate
 
-model_input_table:
+processing_pipeline.model_input_table:
   type: pandas.ParquetDataset
   filepath: data/03_primary/model_input_table.pq
   metadata:
     kedro-viz:
       layer: primary
 
-regressor:
+active_modelling_pipeline.regressor:
   type: pickle.PickleDataset
   filepath: data/06_models/regressor.pickle
   versioned: true
   metadata:
     kedro-viz:
       layer: models
+      
+candidate_modelling_pipeline.regressor:
+  type: pickle.PickleDataset
+  filepath: data/06_models/candidate_regressor.pickle
+  versioned: true
+  metadata:
+    kedro-viz:
+      layer: models
 
-metrics:
+active_modelling_pipeline.X_test:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/x_test.csv
+  metadata:
+    kedro-viz:
+      layer: 08_reporting
+
+active_modelling_pipeline.y_test:
+  type: pandas.CSVDataset
+  filepath: data/08_reporting/y_test.csv
+  metadata:
+    kedro-viz:
+      layer: 08_reporting
+
+active_modelling_pipeline.metrics:
   type: tracking.MetricsDataset
-  filepath: data/09_tracking/metrics.json
+  filepath: data/09_tracking/active_metrics.json
   metadata:
     kedro-viz:
       layer: tracking
 
-companies_columns:
+candidate_modelling_pipeline.metrics:
+  type: tracking.MetricsDataset
+  filepath: data/09_tracking/candidate_metrics.json
+  metadata:
+    kedro-viz:
+      layer: tracking
+
+processing_pipeline.companies_columns:
   type: tracking.JSONDataset
   filepath: data/09_tracking/companies_columns.json
   metadata:
     kedro-viz:
       layer: tracking
 
-shuttle_passenger_capacity_plot_exp:
+reporting_pipeline.shuttle_passenger_capacity_plot_exp:
   type: plotly.PlotlyDataset
   filepath: data/08_reporting/shuttle_passenger_capacity_plot_exp.json
   versioned: true
@@ -126,7 +155,7 @@ shuttle_passenger_capacity_plot_exp:
       layer: reporting
 
 
-shuttle_passenger_capacity_plot_go:
+reporting_pipeline.shuttle_passenger_capacity_plot_go:
   type: plotly.JSONDataset
   filepath: data/08_reporting/shuttle_passenger_capacity_plot_go.json
   versioned: true
@@ -134,10 +163,20 @@ shuttle_passenger_capacity_plot_go:
     kedro-viz:
       layer: reporting
 
-dummy_confusion_matrix:
+reporting_pipeline.dummy_confusion_matrix:
   type: matplotlib.MatplotlibWriter
   filepath: data/08_reporting/dummy_confusion_matrix.png
   versioned: true
   metadata:
     kedro-viz:
       layer: reporting
+
+
+reporting_pipeline.actual_predicted_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/08_reporting/active_actual_predicted_plot.png
+  versioned: true
+  metadata:
+    kedro-viz:
+      layer: reporting
+

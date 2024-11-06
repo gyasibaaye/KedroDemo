@@ -3,8 +3,8 @@ from kedro.pipeline import Pipeline, node, pipeline
 from .nodes import create_model_input_table, preprocess_companies, preprocess_shuttles
 
 
-def create_pipeline(**kwargs) -> Pipeline:
-    return pipeline(
+def create_pipeline(**kwargs) -> Pipeline: 
+    pipeline_instance = pipeline(
         [
             node(
                 func=preprocess_companies,
@@ -26,3 +26,11 @@ def create_pipeline(**kwargs) -> Pipeline:
             ),
         ]
     )
+    processing_pipeline_1 = pipeline(
+        pipe=pipeline_instance,
+        inputs=["companies", "shuttles", "reviews"],
+        # parameters="",
+        namespace="processing_pipeline",
+    )
+
+    return processing_pipeline_1
